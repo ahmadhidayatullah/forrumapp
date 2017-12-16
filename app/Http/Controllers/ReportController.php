@@ -103,7 +103,7 @@ class ReportController extends Controller
       $image_type     = $image_type_aux[1];
       $image_base64   = base64_decode($image_parts[1]);
       $file_name      = $strName.'_'. uniqid() . '.'.$image_type;
-      $file           = public_path('../../assets/images/reports/') . $file_name;
+      $file           = public_path('storage/threads/') . $file_name;
       file_put_contents($file, $image_base64);
 
       $member = $request->user()->reports()->create([
@@ -193,8 +193,8 @@ class ReportController extends Controller
       $image_type     = $image_type_aux[1];
       $image_base64   = base64_decode($image_parts[1]);
       $file_name      = $strName.'_'. uniqid() . '.'.$image_type;
-      $file           = public_path('../../assets/images/reports/') . $file_name;
-      File::Delete(public_path('../../assets/images/reports/') . $report->image);
+      $file           = public_path('storage/threads/') . $file_name;
+      File::Delete(public_path('public/threads/') . $report->image);
       file_put_contents($file, $image_base64);
       //end decode
 
@@ -220,7 +220,7 @@ class ReportController extends Controller
         'message' => 'laporan bukan milik anda',
       ],403);
     }
-    File::Delete(public_path('../../assets/images/reports/') . $report->image);
+    File::Delete(public_path('public/reports/') . $report->image);
     $report->delete();
     return response()->json([
       'status'  => 'success',
